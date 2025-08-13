@@ -1,0 +1,155 @@
+backend:
+  name: git-gateway
+  branch: main # Change to 'master' if your default branch is master
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: 'he'
+
+collections:
+  - name: "house-items"
+    label: "פריטי הבית למכירה"
+    label_singular: "פריט"
+    folder: "_items"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - label: "שם הפריט"
+        name: "title"
+        widget: "string"
+        required: true
+        hint: "לדוגמא: אייפון 13, ספת עור, טלוויזיה סמסונג"
+        
+      - label: "מחיר (₪)"
+        name: "price"
+        widget: "number"
+        required: true
+        min: 0
+        step: 1
+        
+      - label: "קטגוריה"
+        name: "category"
+        widget: "select"
+        required: true
+        options:
+          - label: "אלקטרוניקה"
+            value: "אלקטרוניקה"
+          - label: "רהיטים"
+            value: "רהיטים"
+          - label: "מכשירי חשמל"
+            value: "מכשירי חשמל"
+          - label: "בגדים"
+            value: "בגדים"
+          - label: "ספרים"
+            value: "ספרים"
+          - label: "צעצועים ומשחקים"
+            value: "צעצועים ומשחקים"
+          - label: "ציוד ספורט"
+            value: "ציוד ספורט"
+          - label: "כלי מטבח"
+            value: "כלי מטבח"
+          - label: "עיצוב הבית"
+            value: "עיצוב הבית"
+          - label: "אביזרים"
+            value: "אביזרים"
+          - label: "אחר"
+            value: "אחר"
+            
+      - label: "מצב הפריט"
+        name: "condition"
+        widget: "select"
+        required: true
+        options:
+          - label: "חדש בקופסה"
+            value: "חדש"
+          - label: "כמו חדש"
+            value: "כמו חדש"
+          - label: "מצוין"
+            value: "מצוין"
+          - label: "טוב"
+            value: "טוב"
+          - label: "בינוני"
+            value: "בינוני"
+          - label: "ירוד"
+            value: "ירוד"
+            
+      - label: "תיאור הפריט"
+        name: "description"
+        widget: "text"
+        required: true
+        hint: "תאר את מצב הפריט, גיל, פגמים, מה כלול במכירה וכו'"
+        
+      - label: "תמונה ראשית"
+        name: "image"
+        widget: "image"
+        required: true
+        hint: "העלה תמונה ראשית של הפריט. התמונה תישמר באתר לצמיתות!"
+        
+      - label: "תמונות נוספות"
+        name: "gallery"
+        widget: "list"
+        required: false
+        field:
+          label: "תמונה"
+          name: "image"
+          widget: "image"
+        hint: "ניתן להוסיף עד 5 תמונות נוספות"
+        max: 5
+        
+      - label: "נמכר"
+        name: "sold"
+        widget: "boolean"
+        default: false
+        hint: "סמן כאשר הפריט נמכר"
+        
+      - label: "תאריך פרסום"
+        name: "date"
+        widget: "datetime"
+        default: ""
+        date_format: "DD.MM.YYYY"
+        time_format: "HH:mm"
+        format: "YYYY-MM-DD HH:mm:ss"
+        
+      - label: "פריט מומלץ"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        required: false
+        hint: "פריטים מומלצים יופיעו בראש הרשימה"
+        
+      - label: "מחיר מקורי"
+        name: "original_price"
+        widget: "number"
+        required: false
+        min: 0
+        step: 1
+        hint: "המחיר המקורי של הפריט (אופציונלי)"
+
+  - name: "settings"
+    label: "הגדרות האתר"
+    files:
+      - label: "מידע כללי"
+        name: "general"
+        file: "_data/site.yml"
+        fields:
+          - label: "כותרת האתר"
+            name: "title"
+            widget: "string"
+            default: "מכירת דירה - כל הבית למכירה"
+            
+          - label: "תיאור האתר"
+            name: "description"
+            widget: "text"
+            default: "הכל חייב לצאת! עיינו בפריטי הבית שלי וצרו איתי קשר בווטסאפ"
+            
+          - label: "מספר טלפון לווטסאפ"
+            name: "whatsapp_number"
+            widget: "string"
+            default: "972501234567"
+            hint: "בפורמט: 972501234567 (ללא + או מקפים)"
+            
+          - label: "הודעת ווטסאפ כללית"
+            name: "whatsapp_general_message"
+            widget: "text"
+            default: "שלום! יש לי שאלה על מכירת הבית שלך."
